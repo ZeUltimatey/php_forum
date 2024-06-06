@@ -1,24 +1,25 @@
 ### Launch the Web App
 
-To start the web app, open your local console and run:
+To start the web app, open your console in project folder and run:
 ```bash
 docker-compose up -d
 ```
 
 ### Database Management
 
-#### Dropping the Database
-If the database is broken, follow these steps to reset it:
-
-```bash
-docker exec -it src-db-1 mysql -uuser -ppassword -e "DROP DATABASE forum"
-```
-
 #### Exporting the Database
 To export the current state of the database:
 
 ```bash
 docker exec -it src-db-1 mysqldump -uuser -ppassword forum > forum_db.sql
+```
+
+## If the database is broken, follow these steps to reset it:
+
+#### Dropping the Database
+
+```bash
+docker exec -it src-db-1 mysql -uuser -ppassword -e "DROP DATABASE forum"
 ```
 
 #### Creating the 'forum' Database
@@ -61,11 +62,9 @@ This project showcases a dynamic forum platform with a robust admin panel, lever
 - **Comprehensive Topic Management**: Versatile topic creation and management.
 - **Interactive Replies**: Responsive system for posting, editing, and deleting replies.
 - **Structured Category Organization**: Effective topic classification.
-- **Professional Image Handling**: Seamless image uploads.
 - **Web Development Insights**: Best practices for efficient coding.
 - **Empowering Admin Panel**: Tools for seamless forum management.
-- **Robust Data Validation**: Advanced techniques for security and integrity.
-- **Bug Identification and Resolution**: Skills to troubleshoot and fix issues.
+- **Data Validation**: Good techniques for security and integrity.
 - **User Profile Personalization**: Enhancing user engagement and customization.
 
 ## Technologies Utilized
