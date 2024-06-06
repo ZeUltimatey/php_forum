@@ -131,23 +131,4 @@ dist
 
 .idea
 /node_modules/
-/.vs/VSWorkspaceState.json
-/.vs/php_forum/FileContentIndex/418fca51-cdf7-440d-834b-08088334a4b8.vsidx
-/.vs/php_forum/FileContentIndex/5ae55d72-adcf-41fe-bb36-7ea2f4a9ee41.vsidx
-/.vs/php_forum/v17/.wsuo
-/.vs/php_forum/FileContentIndex/d2b7ed83-3d09-4694-8e7a-532db96d931b.vsidx
-*.sqlite
-/.vs/ProjectSettings.json
-/.vs/php_forum/FileContentIndex/c1ab25fc-3088-4189-9a30-b871addffbc7.vsidx
-/.vs/php_forum/FileContentIndex/d1821ab0-7752-4b97-a0cd-677d9c17b4a8.vsidx
-/.vs/php_forum/FileContentIndex/38885435-eff2-4b91-90a1-e0f0084303c3.vsidx
-/.vs/php_forum/FileContentIndex/6e1accb6-5d51-4b46-a3ec-895ba5c72e79.vsidx
-/.vs/php_forum/FileContentIndex/f2b0bfd4-99a0-4315-a1a6-89814890d12f.vsidx
-/.vs/php_forum/FileContentIndex/8f43ddd8-0fd9-484a-a278-1c1bef7b1822.vsidx
-/.vs/php_forum/FileContentIndex/e754ba32-49c8-42cb-8979-ff5a5ffd4839.vsidx
-/.vs/php_forum/FileContentIndex/2f1766a7-3c0b-4b7d-b5db-86bf7ced2bed.vsidx
-/.vs/php_forum/FileContentIndex/eb016253-7ffc-45e9-b6b1-2198144474ee.vsidx
-/.vs/php_forum/FileContentIndex/d69386ae-ad13-4144-a878-24675288e762.vsidx
-/.vs/php_forum/FileContentIndex/9f472ba1-359b-4592-8f88-38a36afe890a.vsidx
-/.vs/php_forum/FileContentIndex/65617999-6536-49b9-8047-38d23b8affc1.vsidx
-/.vs/php_forum/FileContentIndex/46307633-bf8e-4ffd-9e4f-3984ede52bc2.vsidx
+/.vs/
