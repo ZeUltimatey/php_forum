@@ -165,7 +165,8 @@ body.dark-mode .footer {
 
 .header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     padding: 15px 10px;
     background: var(--color-block-background-light);
 }
@@ -183,6 +184,29 @@ body.dark-mode .footer {
 
 .header a.active {
     color: var(--color-link-active);
+}
+
+#audioControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#volumeControl {
+    width: 100px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 .navbar {

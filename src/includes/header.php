@@ -20,7 +20,42 @@ if (!defined('APPURL')) {
 <body>
 <div class="header" role="navigation">
     <nav>
-        <ul class="nav-links">
+        <!-- Audio Controls Section -->
+        <div id="audioControls" style="position: fixed; top: 10px; left: 10px;">
+            <audio autoplay loop id="bgMusic">
+                <source src="/music/cool_background_music.mp3" type="audio/mpeg">
+            </audio>
+            <!-- Volume Control Slider -->
+            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+            <!-- Stop Music Button -->
+            <button id="stopMusic">Stop Music</button>
+            <!-- Play Music Button -->
+            <button id="playMusic">Play Music</button>
+        </div>
+    </nav>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var bgMusic = document.getElementById('bgMusic');
+    var playButton = document.getElementById('playMusic');
+    var stopButton = document.getElementById('stopMusic');
+
+    playButton.addEventListener('click', function() {
+        bgMusic.play();
+    });
+
+    stopButton.addEventListener('click', function() {
+        bgMusic.pause();
+        bgMusic.currentTime = 0; // Optional: Reset song to start
+    });
+
+    document.getElementById('volumeControl').addEventListener('input', function() {
+        bgMusic.volume = this.value;
+    });
+});
+</script>
+<ul class="nav-links">
+    <li class="logo"><a href="<?php echo APPURL; ?>/index-user.php">Forum</a></li>
             <li class="logo"><a href="<?php echo APPURL; ?>/index-user.php">Forum</a></li>
             <?php if (isset($_SESSION['username'])) : ?>
                 <li><a href="<?php echo APPURL; ?>/topics/create-topic-user.php">Create Topic</a></li>
