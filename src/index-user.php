@@ -100,6 +100,66 @@ if (isset($_GET['search'])) {
     $allTopics = $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 ?>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensures the canvas is behind other content */
+  }
+  .container {
+    position: relative;
+    z-index: 1; /* Ensures content is above the canvas */
+  }
+</style>
+<body>
+<script>
+    function init() {
+        var material = new THREE.MeshBasicMaterial({color: 0x00ff00}); // Example: green cube
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Add lighting
+        var light = new THREE.PointLight(0xffffff, 1, 100); // Color, intensity, distance
+        light.position.set(10, 10, 10); // Position the light
+        scene.add(light);
+
+        // Add an ambient light for softer shadows and more natural-looking illumination
+        var ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+        scene.add(ambientLight);
+
+        camera.position.z = cubeSize * 1.5;
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Recalculate cube size and camera position on resize
+            var newCubeSize = Math.min(window.innerWidth, window.innerHeight);
+            cube.scale.set(newCubeSize / cubeSize, newCubeSize / cubeSize, newCubeSize / cubeSize);
+            camera.position.z = newCubeSize * 1.5;
+        }
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY || window.pageYOffset;
+            var scale = Math.max(1 - scrollY / 1000, 0.5); // Adjust scale based on scroll
+            cube.scale.set(scale, scale, scale);
+        }, false);
+    }
+
+    init();
+</script>
 <div class="container">
     <div class="row">
         <h1 class="pull-center">Welcome to Forum</h1>
@@ -145,6 +205,7 @@ if (isset($_GET['search'])) {
                                         </div>
                                     </div>
                                 </li>
+                                <li><?php echo htmlspecialchars($topic->title); ?> - Replies: <?php echo $topic->count_replies; ?></li>
                             <?php endforeach;
                         } else {
                             foreach ($allTopics as $topic) : ?>
@@ -193,17 +254,14 @@ if (isset($_GET['search'])) {
                 <div class="block" style="margin-top: 20px;">
                     <h3 class="margin-top: 40px">Forum Statistics</h3>
                     <div class="list-group">
-                        <a class="list-group-item">Total Number of Users:<span
-                                    class="color badge pull-right"><?php echo $allUsers->count_users; ?></span></a>
-                        <a class="list-group-item">Total Number of Topics:<span
-                                    class="color badge pull-right"><?php echo $allTopics_count->count_topics; ?></span></a>
-                        <a class="list-group-item">Total Number of Categories: <span
-                                    class="color badge pull-right"><?php echo $allCategories_count->categories_count; ?></span></a>
-                    </div>
+                    <a class="list-group-item">Total Number of Users:<span class="color badge pull-right"><?php echo $allUsers->count_users; ?></span></a>
+                    <a class="list-group-item">Total Number of Topics:<span class="color badge pull-right"><?php echo $allTopics_count->count_topics; ?></span></a>
+                    <a class="list-group-item">Total Number of Categories: <span class="color badge pull-right"><?php echo $allCategories_count->categories_count; ?></span></a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>
 <?php require "includes/footer.php"; ?>
 
