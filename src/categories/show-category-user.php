@@ -78,9 +78,37 @@ if (isset($conn)) {
     echo "Database connection not established.";
     exit;
 }
-
 ob_end_flush();
 ?>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const elements = document.querySelectorAll('.topic-content h4, .topic-info');
+
+    elements.forEach(el => {
+        // Check if the element already has a span to avoid re-processing
+        if (el.querySelector('span') === null) {
+            let textContent = el.textContent.trim();
+
+            if (textContent.length > 15) {
+                let firstPart = textContent.substr(0, 15);
+                let secondPart = textContent.substr(15);
+
+                // Clear the current text content
+                el.textContent = '';
+
+                // Create and append the first part
+                let firstTextNode = document.createTextNode(firstPart);
+                el.appendChild(firstTextNode);
+
+                // Create, configure, and append the span for the second part
+                let span = document.createElement('span');
+                span.textContent = secondPart;
+                el.appendChild(span);
+            }
+        }
+    });
+});
+</script>
 <div class="container">
     <div class="row">
         <h1 class="pull-center">Welcome to Forum</h1>
@@ -138,7 +166,7 @@ ob_end_flush();
                 <div class="block">
                     <h3>Categories</h3>
                     <div class="list-group">
-                        <a href="<?php echo APPURL; ?>/index-user.php" class="list-group-item active">All Topics <span
+                        <a href="<?php echo APPURL; ?>/index-user.php" class="list-group-item">All Topics <span
                                     class="badge pull-right"><?php echo $allTopicsCount->all_topics; ?></span></a>
                         <?php foreach ($allCategories as $category) : ?>
                             <a href="<?php echo APPURL; ?>/categories/show-category-user.php?name=<?php echo $category->name; ?>"

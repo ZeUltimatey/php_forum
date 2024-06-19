@@ -20,42 +20,7 @@ if (!defined('APPURL')) {
 <body>
 <div class="header" role="navigation">
     <nav>
-        <!-- Audio Controls Section -->
-        <div id="audioControls" style="position: fixed; top: 10px; left: 10px;">
-            <audio autoplay loop id="bgMusic">
-                <source src="/music/cool_background_music.mp3" type="audio/mpeg">
-            </audio>
-            <!-- Volume Control Slider -->
-            <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
-            <!-- Stop Music Button -->
-            <button id="stopMusic">Stop Music</button>
-            <!-- Play Music Button -->
-            <button id="playMusic">Play Music</button>
-        </div>
-    </nav>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var bgMusic = document.getElementById('bgMusic');
-    var playButton = document.getElementById('playMusic');
-    var stopButton = document.getElementById('stopMusic');
-
-    playButton.addEventListener('click', function() {
-        bgMusic.play();
-    });
-
-    stopButton.addEventListener('click', function() {
-        bgMusic.pause();
-        bgMusic.currentTime = 0; // Optional: Reset song to start
-    });
-
-    document.getElementById('volumeControl').addEventListener('input', function() {
-        bgMusic.volume = this.value;
-    });
-});
-</script>
-<ul class="nav-links">
-    <li class="logo"><a href="<?php echo APPURL; ?>/index-user.php">Forum</a></li>
+        <ul class="nav-links">
             <li class="logo"><a href="<?php echo APPURL; ?>/index-user.php">Forum</a></li>
             <?php if (isset($_SESSION['username'])) : ?>
                 <li><a href="<?php echo APPURL; ?>/topics/create-topic-user.php">Create Topic</a></li>
@@ -79,10 +44,61 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="header-container">
                 <button id="toggle-theme-button">Theme</button>
             </div>
+            <div id="audioControls">
+                <audio autoplay loop id="bgMusic"><source src="/music/cool_background_music.mp3" type="audio/mpeg"></audio>
+                <button id="togglePlayPause">▶️</button>
+                <button id="resetMusic">⏮️</button>
+            </div>
+            <div class="volume-control-container">
+            <label for="volumeControl">Volume:</label>
+                <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+                <span id="volumeIndicator">50%</span>
+            </div>
         </ul>
     </nav>
 </div>
 <script src="/js/theme.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var volumeControl = document.getElementById('volumeControl');
+    var volumeIndicator = document.getElementById('volumeIndicator');
+    var bgMusic = document.getElementById('bgMusic');
+    const togglePlayPauseButton = document.getElementById('togglePlayPause');
+    const resetButton = document.getElementById('resetMusic');
+    let isPlaying = false;
+
+    volumeControl.addEventListener('input', function() {
+        var volumePercentage = Math.round(this.value * 100);
+        if (volumePercentage === 0) {
+            volumeIndicator.textContent = 'Muted';
+        } else {
+            volumeIndicator.textContent = volumePercentage + '%';
+        }
+        bgMusic.volume = this.value;
+    });
+
+    togglePlayPauseButton.addEventListener('click', function() {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            togglePlayPauseButton.textContent = '⏸️'; // Change symbol to pause
+            isPlaying = true;
+        } else {
+            bgMusic.pause();
+            togglePlayPauseButton.textContent = '▶️'; // Change symbol to play
+            isPlaying = false;
+        }
+    });
+
+    resetButton.addEventListener('click', function() {
+        bgMusic.pause();
+        bgMusic.currentTime = 0; // Reset music time
+        if (isPlaying) { // If music was playing, change symbol back to play
+            togglePlayPauseButton.textContent = '▶️';
+            isPlaying = false;
+        }
+    });
+});
+</script>
 </body>
 </html>
