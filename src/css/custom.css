@@ -198,7 +198,7 @@ body.dark-mode .footer {
 
 button {
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #80ff80;
     color: white;
     border: none;
     border-radius: 5px;
@@ -206,7 +206,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #008000;
 }
 
 .navbar {
@@ -280,13 +280,13 @@ button:hover {
     display: inline-block;
     vertical-align: top;
 }
-
-.topic-content h3 a {
-    color: #007bff;
+.topic-content h3 a, .topic-content h4 a {
+    color: #808080;
     text-decoration: none;
 }
 
-.topic-content h3 a:hover {
+.topic-content h3 a:hover, .topic-content h4 a:hover {
+    color: #505050;
     text-decoration: underline;
 }
 
@@ -297,8 +297,8 @@ button:hover {
     color: #666;
 }
 
-.topic-info a {
-    color: #007bff;
+.new-line {
+    display: block;
 }
 
 .color.badge {
@@ -376,14 +376,6 @@ input[type="password"] {
 .user-info {
     text-align: center;
     margin-bottom: 20px;
-}
-
-.avatar {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
 }
 
 @media (max-width: 768px) {

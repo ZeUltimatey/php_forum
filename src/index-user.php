@@ -100,35 +100,6 @@ if (isset($_GET['search'])) {
     $allTopics = $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 ?>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const elements = document.querySelectorAll('.topic-content h4, .topic-info');
-
-    elements.forEach(el => {
-        // Check if the element already has a span to avoid re-processing
-        if (el.querySelector('span') === null) {
-            let textContent = el.textContent.trim();
-
-            if (textContent.length > 15) {
-                let firstPart = textContent.substr(0, 15);
-                let secondPart = textContent.substr(15);
-
-                // Clear the current text content
-                el.textContent = '';
-
-                // Create and append the first part
-                let firstTextNode = document.createTextNode(firstPart);
-                el.appendChild(firstTextNode);
-
-                // Create, configure, and append the span for the second part
-                let span = document.createElement('span');
-                span.textContent = secondPart;
-                el.appendChild(span);
-            }
-        }
-    });
-});
-</script>
 <div class="container">
     <div class="row">
         <h1 class="pull-center">Welcome to Forum</h1>
@@ -150,59 +121,73 @@ document.addEventListener("DOMContentLoaded", function() {
                         </ul>
                     </div>
                     <ul id="topics">
-                        <?php if (isset($results)) {
-                            foreach ($results as $result) : ?>
-                                <li class="topic">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <img class="avatar pull-left" src="img/<?php echo $result->user_image; ?>"/>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="topic-content pull-right">
-                                                <h4>
-                                                    <a href="<?php echo APPURL; ?>/topics/show-topic-user.php?id=<?php echo $result->id; ?>"><?php echo $result->title; ?></a>
-                                                </h4>
-                                                <div class="topic-info">
-                                                    <a href="<?php echo APPURL; ?>/categories/show.php?name=<?php echo $result->category; ?>"><?php echo $result->category; ?></a>
-                                                    >>
-                                                    <a href="<?php echo APPURL; ?>/main/user.php?name=<?php echo $result->user_name; ?>">
-                                                        <?php echo $result->user_name; ?></a>
-                                                    >> Posted on: <?php echo $result->created_at; ?>
-                                                    <span class="color badge pull-right"><?php echo property_exists($result, 'count_replies') ? $result->count_replies : 0; ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            <?php endforeach;
-                        } else {
-                            foreach ($allTopics as $topic) : ?>
-                                <li class="topic">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <img class="avatar pull-left" src="img/<?php echo $topic->user_image; ?>"/>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="topic-content pull-right">
-                                                <h4>
-                                                    <a href="<?php echo APPURL; ?>/topics/show-topic-user.php?id=<?php echo $topic->id; ?>"><?php echo $topic->title; ?></a>
-                                                </h4>
-                                                <div class="topic-info">
-                                                    <a href="<?php echo APPURL; ?>/categories/show-category-user.php?name=<?php echo $topic->category; ?>"><?php echo $topic->category; ?></a>
-                                                    >>
-                                                    <a href="<?php echo APPURL; ?>/main/user.php?name=<?php echo $topic->user_name; ?>">
-                                                        <?php echo $topic->user_name; ?></a>
-                                                    >> Posted on: <?php echo $topic->created_at; ?>
-                                                    <span class="color badge pull-right"><?php echo $topic->count_replies; ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            <?php endforeach;
-                        }
-                        ?>
-                    </ul>
+    <?php if (isset($results)) {
+        foreach ($results as $result) : ?>
+            <li class="topic">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="avatar pull-left" src="img/<?php echo $result->user_image; ?>"/>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="topic-content pull-lefts">
+                            <h4>
+                                <a href="<?php echo APPURL; ?>/topics/show-topic-user.php?id=<?php echo $result->id; ?>">
+                                    <?php 
+                                    $title = $result->title;
+                                    $wrappedTitle = wordwrap($title, 25, "\n", true);
+                                    $displayTitle = str_replace("\n", '<br>', $wrappedTitle);
+                                    echo $displayTitle; 
+                                    ?>
+                                </a>
+                            </h4>
+                            <div class="topic-info">
+                                <a href="<?php echo APPURL; ?>/categories/show.php?name=<?php echo $result->category; ?>"><?php echo $result->category; ?></a>
+                                >>
+                                <a href="<?php echo APPURL; ?>/main/user.php?name=<?php echo $result->user_name; ?>">
+                                    <?php echo $result->user_name; ?></a>
+                                >> Posted on: <?php echo $result->created_at; ?>
+                                <span class="color badge pull-right"><?php echo property_exists($result, 'count_replies') ? $result->count_replies : 0; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach;
+    } else {
+        foreach ($allTopics as $topic) : ?>
+            <li class="topic">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img class="avatar pull-left" src="img/<?php echo $topic->user_image; ?>"/>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="topic-content pull-right">
+                            <h4>
+                                <a href="<?php echo APPURL; ?>/topics/show-topic-user.php?id=<?php echo $topic->id; ?>">
+                                    <?php 
+                                    $title = $topic->title;
+                                    $wrappedTitle = wordwrap($title, 25, "\n", true);
+                                    $displayTitle = str_replace("\n", '<br>', $wrappedTitle);
+                                    echo $displayTitle; 
+                                    ?>
+                                </a>
+                            </h4>
+                            <div class="topic-info">
+                                <a href="<?php echo APPURL; ?>/categories/show-category-user.php?name=<?php echo $topic->category; ?>"><?php echo $topic->category; ?></a>
+                                >>
+                                <a href="<?php echo APPURL; ?>/main/user.php?name=<?php echo $topic->user_name; ?>">
+                                    <?php echo $topic->user_name; ?></a>
+                                >> Posted on: <?php echo $topic->created_at; ?>
+                                <span class="color badge pull-right"><?php echo $topic->count_replies; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach;
+    }
+    ?>
+</ul>
                 </div>
             </div>
         </div>

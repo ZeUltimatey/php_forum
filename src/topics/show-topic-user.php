@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                     </div>
                                 </div>
                                 <div class="col-md-10">
-                                    <div class="topic-content pull-right">
+                                    <div class="topic-content pull-left">
                                         <p><?php echo $singleTopic->body; ?></p>
                                     </div>
                                     <?php if (isset($_SESSION['username'])) : ?>
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                         </div>
                                     </div>
                                     <div class="col-md-10">
-                                        <div class="topic-content pull-right">
+                                        <div class="topic-content pull-left">
                                             <p><?php echo $reply->reply; ?></p>
                                         </div>
                                     </div>
