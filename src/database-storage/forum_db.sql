@@ -15,6 +15,10 @@ time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+DROP DATABASE IF EXISTS forum;
+
+CREATE DATABASE forum;
+USE forum;
 --
 -- Database: `forum`
 --
@@ -162,7 +166,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `username`, `password`, `about`, `avatar`, `created_at`) VALUES
 (1, 'tiendung8a6@gmail.com', 'tiendung8a6@gmail.com', 'tiendung8a6@gmail.com', '$2y$10$NrKqHO0wpeCPG2poTn9OZe9rDhjJudXxXn012BMjpC4xW6Gc5I99G', 'I am an eager and passionate student with a burgeoning interest in programming, although I am currently at the early stages of my journey. Despite my limited experience, I am dedicated to learning the fundamental principles of programming. I understand that programming encompasses not only mastering specific languages but also cultivating logical thinking and effective problem-solving skills. Through guidance from instructors and participation in study groups, I have already applied my knowledge to small projects, which has boosted my confidence. I actively seek learning opportunities from diverse sources and consistently challenge myself to expand my skill set. While I am still exploring and developing, I am confident that my determination will help me overcome obstacles and become a proficient programmer. I remain committed to continuous learning, skill refinement, and embracing new projects to further excel in the programming field.', 'gravatar.png', '2023-08-19 08:11:59'),
-(2, 'user1@gmail.com', 'user1@gmail.com', 'user1@gmail.com', '$2y$10$NrKqHO0wpeCPG2poTn9OZe9rDhjJudXxXn012BMjpC4xW6Gc5I99G', 'I am', 'gravatar.png', '2023-08-19 08:11:59');
+(2, 'user1@gmail.com', 'user1@gmail.com', 'user1@gmail.com', '$2y$10$NrKqHO0wpeCPG2poTn9OZe9rDhjJudXxXn012BMjpC4xW6Gc5I99G', 'I am', 'gravatar.png', '2023-08-19 08:11:59'),
 (3, 'user2@gmail.com', 'user2@gmail.com', 'user2@gmail.com', '$2y$10$NrKqHO0wpeCPG2poTn9OZe9rDhjJudXxXn012BMjpC4xW6Gc5I99G', 'I am not', 'gravatar.png', '2023-08-19 08:12:59');
 
 

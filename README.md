@@ -42,10 +42,16 @@ docker exec -it src-db-1 mysql -uuser -ppassword -e "DROP DATABASE forum"
     exit
     ```
 
-4. **Execute SQL Commands from `forum_db.sql`:**
+4. **Execute in windows SQL Commands from `forum_db.sql`:**
 
     ```bash
     Get-Content C:/www/PHP_FORUM/src/database-storage/forum_db.sql | docker exec -i src-db-1 mysql -uuser -ppassword forum
+    ```
+
+4. **Execute inn linux SQL Commands from `forum_db.sql`:**
+
+    ```bash
+    cat /home/edijs/projects/php_forum/src/database-storage/forum_db.sql | docker exec -i src-db-1 mysql -uuser -ppassword forum
     ```
 
 This command reads the content of the `forum_db.sql` file and pipes it to the MySQL server within the Docker container.
