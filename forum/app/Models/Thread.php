@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Thread extends Model
 {
@@ -23,16 +24,8 @@ class Thread extends Model
     /**
      * Get the user that owns the thread.
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the replies for the thread.
-     */
-    public function replies()
-    {
-        return $this->hasMany(Reply::class);
     }
 }

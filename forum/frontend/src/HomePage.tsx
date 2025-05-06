@@ -5,6 +5,7 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: 'http://localhost:8000',
     timeout: 5000,
+    withCredentials: true,
 });
 
 interface Thread {
@@ -19,7 +20,7 @@ const HomePage: React.FC = () => {
 
     useEffect(() => {
         setLoading(true);
-        api.get<Thread[]>('/api/threads')
+        api.get<Thread[]>('/threads')
             .then((response) => {
                 setThreads(response.data as Thread[]);
                 setError(null);

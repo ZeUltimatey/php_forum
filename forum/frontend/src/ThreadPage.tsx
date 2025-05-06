@@ -1,32 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
+const api = axios.create({
+    baseURL: 'http://localhost:8000',
+    timeout: 5000,
+    withCredentials: true,
+});
 
 interface Thread {
     id: number;
     title: string;
-    // Add any other properties your Thread might have
+    content: string;
 }
 
 const ThreadPage: React.FC = () => {
-    const [threads, setThreads] = useState<Thread[]>([]);
+    const { id } = useParams<{ id: string }>();
+    const [thread, setThread] = useState<Thread | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get<Thread[]>('/api/threads')
+        setLoading(true);
+        Promise.resolve(api.get<Thread>(`/threads/${id}`))
             .then((response) => {
-                // Explicitly cast the response data to Thread[]
-                setThreads(response.data as Thread[]);
-            });
-    }, []);
+                setThread(response.data);
+                setError(null);
+            })
+            .catch((err) => {
+                console.error("API Error:", err);
+                setError(`Failed to load thread: ${err.message}`);
+            })
+            .finally(() => setLoading(false));
+    }, [id]);
 
     return (
-        <div>
-            {/* Your ThreadPage rendering logic here */}
-            {threads.map((thread) => (
-                <div key={thread.id}>
-                    {thread.title}
+        <div className="container mt-4">
+            {loading && <p>Loading thread...</p>}
+
+            {error && (
+                <div className="alert alert-danger">
+                    {error}
                 </div>
-            ))}
+            )}
+
+            {!loading && thread && (
+                <>
+                    <h1>{thread.title}</h1>
+                    <p>{thread.content}</p>
+                </>
+            )}
         </div>
     );
 };

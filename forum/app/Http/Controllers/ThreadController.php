@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thread;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,9 +12,9 @@ class ThreadController extends Controller
     /**
      * Display a listing of the threads.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $threads = Thread::latest()->get();
         return response()->json($threads);
@@ -22,10 +23,10 @@ class ThreadController extends Controller
     /**
      * Store a newly created thread in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -48,10 +49,10 @@ class ThreadController extends Controller
     /**
      * Display the specified thread.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
         $thread = Thread::with('replies')->findOrFail($id);
         return response()->json($thread);
@@ -60,11 +61,11 @@ class ThreadController extends Controller
     /**
      * Update the specified thread in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $thread = Thread::findOrFail($id);
 
@@ -93,10 +94,10 @@ class ThreadController extends Controller
     /**
      * Remove the specified thread from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         $thread = Thread::findOrFail($id);
 
